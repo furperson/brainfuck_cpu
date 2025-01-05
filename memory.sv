@@ -5,7 +5,6 @@ parameter integer is_initialize = 0,
 parameter string init_file = "init.mem"
 )
 (
-    input logic enable_in
     input logic is_write_in,
     input logic data_in,
     output logic data_out,
@@ -13,9 +12,9 @@ parameter string init_file = "init.mem"
     input logic addr_in
 
 );
-
+//переделать
 logic [width_data-1:0] inner_memmory [2**width_addr -1:0] ; 
-
+assign   data_out = inner_memmory [addr_in];
 always_comb begin
 if (reset_in==1'b1) begin
     if(is_initialize==0) begin
@@ -34,9 +33,6 @@ else
 begin
     if(is_write_in==1'b1) begin
         inner_memmory [addr_in] = data_in;
-    end
-    else begin
-        data_out = inner_memmory [addr_in];
     end
 end
 end
